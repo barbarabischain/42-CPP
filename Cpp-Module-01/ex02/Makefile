@@ -1,0 +1,44 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: babischa <babischa@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/19 14:59:39 by babischa          #+#    #+#              #
+#    Updated: 2025/06/03 20:00:14 by babischa         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME     	:= brain
+
+CC 	     	:= c++
+FLAGS 		:= -Wall -Werror -Wextra -std=c++98 -g3
+
+
+SRC_FILES	:= main
+OBJ      	:= $(addprefix objects/, $(addsuffix .o, $(SRC_FILES)))
+
+all: $(NAME)
+
+objects/%.o: %.cpp | objects
+	$(CC) $(FLAGS) -o $@ -c $< ; \
+	echo "Compiling: $(notdir $<)"
+
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+
+objects:
+	mkdir -p objects
+
+bonus: all
+
+clean:
+	rm -rf objects
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
