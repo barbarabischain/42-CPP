@@ -6,18 +6,18 @@
 #    By: babischa <babischa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 14:59:39 by babischa          #+#    #+#              #
-#    Updated: 2025/07/29 16:06:31 by babischa         ###   ########.fr        #
+#    Updated: 2025/07/31 14:57:30 by babischa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME     	:= easyfind
+NAME     	:= span
 
 CC 	     	:= c++
 FLAGS 		:= -Wall -Werror -Wextra -std=c++98 -g3
 
 HEADERS		:= -I ./include
 
-SRC_FILES	:= main easyfind
+SRC_FILES	:= main Span
 OBJ      	:= $(addprefix objects/, $(addsuffix .o, $(SRC_FILES)))
 
 all: $(NAME)
