@@ -1,4 +1,6 @@
 #include "../include/Span.hpp"
+#include <deque>
+#include <list>
 
 int main(void)
 {
@@ -53,18 +55,38 @@ int main(void)
     }
 
 
-    std::cout << GREEN << "\n=== TEST 15000 ===" << RESET << std::endl;
+    // std::cout << GREEN << "\n=== TEST 15000 ===" << RESET << std::endl;
+    // try
+    // {
+    //     Span sp = Span(15000);
+    //     //metodo para preencher
+
+    //     std::cout << sp.shortestSpan() << std::endl;
+    //     std::cout << sp.longestSpan() << std::endl;
+    // }
+    // catch(const std::exception& e)
+    // {
+    //     std::cerr << e.what() << std::endl;
+    // }
+
+    std::cout << GREEN << "\n=== TEST FILL ===" << RESET << std::endl;
     try
     {
-        Span sp = Span(15000);
-        //metodo para preencher 
+        Span sp = Span(10);
+        std::list<int> numbers;
+        for (int i = 0; i < 10; i++)
+            numbers.push_back(i + 1 * 10);
 
-        std::cout << sp.shortestSpan() << std::endl;
-        std::cout << sp.longestSpan() << std::endl;
+        std::list<int>::iterator it;
+        for (it = numbers.begin(); it != numbers.end(); it++)
+            std::cout << *it << " ";
+        std::cout << "\n";
+
+        sp.fill(numbers.begin(), numbers.end());
+
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
     }
-
 }

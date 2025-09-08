@@ -25,7 +25,20 @@ class Span{
         void addNumber(int number);
         int shortestSpan(void);
         int longestSpan(void);
-        void fill(void); //implementar
+
+        template<typename IT>
+        void fill(IT begin, IT end){
+            unsigned int distance = std::distance(begin, end);
+            if (distance > maxSize)
+                throw std::overflow_error("The range exceeds the maximum allowed size.");
+            else if (distance == 0)
+                throw std::invalid_argument("The range must contain at least one element.");
+            elements.insert(elements.end(), begin, end);
+
+            for (unsigned int i = 0; i < distance; i++)
+                std::cout << elements[i] << " ";
+            std::cout << "\n";
+        };
 };
 
 #endif

@@ -44,7 +44,3 @@ int Span::longestSpan(void){
     std::sort(sortedElements.begin(), sortedElements.end());
     return(sortedElements[sortedElements.size() -1] - sortedElements[0]);
 }
-
-void Span::fill(void){
-    
-}
