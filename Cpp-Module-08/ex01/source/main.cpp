@@ -55,35 +55,52 @@ int main(void)
     }
 
 
-    // std::cout << GREEN << "\n=== TEST 15000 ===" << RESET << std::endl;
-    // try
-    // {
-    //     Span sp = Span(15000);
-    //     //metodo para preencher
+    std::cout << GREEN << "\n=== TEST FILL 15000 ELEMENTS ===" << RESET << std::endl;
+    try
+    {
+        Span sp = Span(15000);
 
-    //     std::cout << sp.shortestSpan() << std::endl;
-    //     std::cout << sp.longestSpan() << std::endl;
-    // }
-    // catch(const std::exception& e)
-    // {
-    //     std::cerr << e.what() << std::endl;
-    // }
+        std::list<int> list_numbers;
+        for (int i = 0; i < 15000; i++)
+            list_numbers.push_back(i + 1 * 10);
 
-    std::cout << GREEN << "\n=== TEST FILL ===" << RESET << std::endl;
+        sp.fill(list_numbers.begin(), list_numbers.end());
+
+        std::cout << sp.shortestSpan() << std::endl;
+        std::cout << sp.longestSpan() << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+    std::cout << GREEN << "\n=== TEST EMPTY LIST FILL ===" << RESET << std::endl;
     try
     {
         Span sp = Span(10);
-        std::list<int> numbers;
-        for (int i = 0; i < 10; i++)
-            numbers.push_back(i + 1 * 10);
+        std::list<int> list_numbers;
 
-        std::list<int>::iterator it;
-        for (it = numbers.begin(); it != numbers.end(); it++)
-            std::cout << *it << " ";
-        std::cout << "\n";
+        sp.fill(list_numbers.begin(), list_numbers.end());
+        std::cout << sp.shortestSpan() << std::endl;
+        std::cout << sp.longestSpan() << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 
-        sp.fill(numbers.begin(), numbers.end());
+    std::cout << GREEN << "\n=== TEST FILL OVERFLOW ===" << RESET << std::endl;
+    try
+    {
+        Span sp = Span(10);
+        std::list<int> list_numbers;
 
+        for (int i = 0; i < 11; i++)
+            list_numbers.push_back(i);
+
+        sp.fill(list_numbers.begin(), list_numbers.end());
+        std::cout << sp.shortestSpan() << std::endl;
+        std::cout << sp.longestSpan() << std::endl;
     }
     catch(const std::exception& e)
     {

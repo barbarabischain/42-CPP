@@ -35,9 +35,9 @@ class Span{
                 throw std::invalid_argument("The range must contain at least one element.");
             elements.insert(elements.end(), begin, end);
 
-            for (unsigned int i = 0; i < distance; i++)
-                std::cout << elements[i] << " ";
-            std::cout << "\n";
+            // for (unsigned int i = 0; i < distance; i++)
+            //     std::cout << elements[i] << " ";
+            // std::cout << "\n";
         };
 };
 
