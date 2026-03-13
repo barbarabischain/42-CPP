@@ -26,7 +26,7 @@ class BitcoinExchange{
 
         void loadDatabase(const std::string &inputFile);
         void loadInputFile(const std::string &inputFile);
-        //fazer função para imprimir no formato
+        
 };
 
 #endif
