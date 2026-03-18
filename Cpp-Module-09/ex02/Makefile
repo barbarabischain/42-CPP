@@ -17,7 +17,7 @@ FLAGS 		:= -Wall -Werror -Wextra -std=c++98 -g3
 
 HEADERS		:= -I ./include
 
-SRC_FILES	:= main 
+SRC_FILES	:= main PmergeMe
 OBJ      	:= $(addprefix objects/, $(addsuffix .o, $(SRC_FILES)))
 
 all: $(NAME)

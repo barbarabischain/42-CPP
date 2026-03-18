@@ -1,16 +1,18 @@
 #ifndef PMERGEME_HPP
 # define PPMERGEME_HPP
 
+# include <iostream>
 # include <deque>
 # include <vector>
+# include <set>
 # include <iomanip>
 # include <algorithm>
 # include <ctime>
+# include <sstream>
 
 class PmergeMe{
     private:
-        int								size;
-        std::vector<int>				input;
+        // int								size;
         std::vector<int>		        vector;
         std::deque<int>			        deque;
 
@@ -21,8 +23,8 @@ class PmergeMe{
         ~PmergeMe(void);
 
 
-        bool isValidNumber(std::string input);
-        bool isSorted(std::vector<int> &container);
+        void parser(int argc, char **argv);
+        // bool isSorted(std::vector<int> &container);
 };
 
 #endif
