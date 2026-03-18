@@ -25,6 +25,7 @@ void PmergeMe::parser(int argc, char **argv){
     if (argc < 2)
         throw std::invalid_argument("Usage: ./PmergeMe <arguments>");
 
+    std::set<int>  duplicate_checker_set;
     for (int i = 1; i < argc; i++)
     {
         std::string value_str(argv[i]);
@@ -39,7 +40,6 @@ void PmergeMe::parser(int argc, char **argv){
         int num;
         iss >> num;
         
-        std::set<int>  duplicate_checker_set;
         if (duplicate_checker_set.find(num) != duplicate_checker_set.end())
             throw std::invalid_argument("Duplicate value");
         duplicate_checker_set.insert(num);
@@ -47,5 +47,4 @@ void PmergeMe::parser(int argc, char **argv){
         vector.push_back(num);
         deque.push_back(num);
     }
-    
 }

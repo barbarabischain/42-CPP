@@ -24,7 +24,34 @@ class PmergeMe{
 
 
         void parser(int argc, char **argv);
-        // bool isSorted(std::vector<int> &container);
+
+
+
+        template <typename T_container>
+        bool is_sorted(T_container& container){
+            typename T_container::iterator it = container.begin();
+            typename T_container::iterator next = it;
+            next++;
+            while (next != container.end())
+            {
+                if (*next < *it) 
+                    return false;
+                it++;
+                next++;
+            }
+            return true;
+        }
+
+
+        template <typename T_container>
+        void printContainer(T_container& container) {
+            typename T_container::iterator it = container.begin();
+            while (it != container.end()) {
+                std::cout << *it << " ";
+                it++;
+            }
+            std::cout << std::endl;
+        }
 };
 
 #endif
