@@ -12,9 +12,11 @@
 
 class PmergeMe{
     private:
-        // int								size;
         std::vector<int>		        vector;
         std::deque<int>			        deque;
+
+        void sortVector(void);
+        void sortDeque(void);
 
     public:
         PmergeMe(void);
@@ -22,10 +24,10 @@ class PmergeMe{
         PmergeMe &operator=(const PmergeMe &other);
         ~PmergeMe(void);
 
+        std::vector<size_t> generateJacobsthalOrder(size_t n);
 
-        void parser(int argc, char **argv);
-
-
+        void parseInput(int argc, char **argv);
+        void executeSort(void);
 
         template <typename T_container>
         bool is_sorted(T_container& container){
@@ -44,11 +46,11 @@ class PmergeMe{
 
 
         template <typename T_container>
-        void printContainer(T_container& container) {
-            typename T_container::iterator it = container.begin();
+        void printContainer(const T_container& container) {
+            typename T_container::const_iterator it = container.begin();
             while (it != container.end()) {
                 std::cout << *it << " ";
-                it++;
+                ++it;
             }
             std::cout << std::endl;
         }

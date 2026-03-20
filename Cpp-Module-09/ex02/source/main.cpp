@@ -4,10 +4,10 @@ int main(int argc, char **argv)
 {
     try {
         PmergeMe sorter;
-        sorter.parser(argc, argv);
-        
-        // sorter.sortVector(argc, argv);
-        // sorter.sortDeque(argc, argv);
+        sorter.parseInput(argc, argv);
+        sorter.executeSort();
+        sorter.generateJacobsthalOrder(85);
+
     } catch (std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
