@@ -129,50 +129,20 @@ void PmergeMe::sortVector(void){
         mainchain.push_back(pairs[i].first);
     }
 
-    // mainchain.insert(mainchain.begin(), pairs[0].first);
     
-    std::cout << "mainchain maiores: " ;
-    printContainer(mainchain);
-
-    for (size_t i = 0; i < pairs.size(); i++)
+    std::vector<size_t> order = generateJacobsthalOrder(pairs.size());
+    binaryInsert(mainchain, pairs[0].second);
+    for (size_t i = 0; i < order.size(); i++)
     {
-        int value = pairs[i].second;
-        int low = 0;
-        int high = mainchain.size();
-        
-        // Binary search to find insertion position
-        while (low < high)
-        {
-            int mid = low + (high - low) / 2;
-            if (mainchain[mid] < value)
-                low = mid + 1;
-            else
-                high = mid;
-        }
-        mainchain.insert(mainchain.begin() + low, value);
+        binaryInsert(mainchain, pairs[order[i]].second);
     }
 
-        if (hasLeftover)
+    if (hasLeftover)
     {
-        int low = 0;
-        int high = mainchain.size();
-        
-        // Binary search to find insertion position for odd element
-        while (low < high)
-        {
-            int mid = low + (high - low) / 2;
-            if (mainchain[mid] < leftoverElement)
-                low = mid + 1;
-            else
-                high = mid;
-        }
-        
-        mainchain.insert(mainchain.begin() + low, leftoverElement);
+        binaryInsert(mainchain, leftoverElement);    
     }
 
     vector = mainchain;
-    printContainer(mainchain);
-
 }
 
 
@@ -189,7 +159,7 @@ std::vector<size_t> PmergeMe::generateJacobsthalOrder(size_t n)
         size_t size = jacob.size();
         jacob.push_back(jacob[size - 1] + 2 * jacob[size - 2]);
     }
-    
+
     size_t prev = 1;
     for (size_t i = 2; i < jacob.size(); i++)
     {
@@ -197,15 +167,12 @@ std::vector<size_t> PmergeMe::generateJacobsthalOrder(size_t n)
 
         for (size_t j = std::min(curr, n); j > prev; j--)
         {
-            order.push_back(j - 1); // índice do b_i
+            order.push_back(j - 1);
         }
 
         prev = curr;
         if (prev >= n)
             break;
     }
-    std::cout << "order: ";
-    printContainer(order);
-
     return order;
 }

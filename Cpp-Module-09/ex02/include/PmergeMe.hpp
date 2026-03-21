@@ -54,6 +54,24 @@ class PmergeMe{
             }
             std::cout << std::endl;
         }
+
+        template <typename Container>
+        void binaryInsert(Container& container, int value)
+        {
+            size_t low = 0;
+            size_t high = container.size();
+
+            while (low < high)
+            {
+                size_t mid = low + (high - low) / 2;
+
+                if (container[mid] < value)
+                    low = mid + 1;
+                else
+                    high = mid;
+            }
+            container.insert(container.begin() + low, value);
+        }
 };
 
 #endif
