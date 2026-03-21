@@ -17,13 +17,13 @@ RPN &RPN::operator=(const RPN &other){
 
 RPN::~RPN(){}
 
-static int stringToInt(const std::string &str)
-{
-    std::stringstream ss(str);
-    int value;
-    ss >> value;
-    return value;
-}
+// static int stringToInt(const std::string &str)
+// {
+//     std::stringstream ss(str);
+//     int value;
+//     ss >> value;
+//     return value;
+// }
 
 bool RPN::isOperator(std::string token) {
     return (token == "+" || token == "-" || token == "*" || token == "/");
@@ -64,33 +64,30 @@ int RPN::calculate(std::string token, int a, int b){
         result = a * b;
     else if (token == "/")
     {
-        if (b == 0)
-        {   
-            std::cout <<  "Error:  Division by zero." << std::endl;
-            return(INT_MIN);
-        }
+        if (b == 0)   
+            throw std::invalid_argument("Error: division by zero is not allowed");
         result = a / b;
     }
     return (result);
 }
 
 void RPN::load_input(void){
-    if(!isValidInput()){
-        std::cerr << "Error: Invalid expression." << std::endl;   
-        return ; 
-    }
+    if(!isValidInput())
+        throw std::invalid_argument("Invalid expression.");
 
     std::istringstream iss(input);
     std::string token;
-    // int number;
+
+    while (!values.empty())
+    values.pop();
 
     while (iss >> token){
         if (isNumber(token))
-            values.push(stringToInt(token));
+            values.push(token[0] - '0');
         else if (isOperator(token))
         {
             if(values.size() < 2)
-                continue;
+                throw std::invalid_argument("Invalid expression.");
             int b = values.top();
             values.pop();
 
@@ -98,16 +95,13 @@ void RPN::load_input(void){
             values.pop();
 
             int result = calculate(token, a, b);
-            if (result == INT_MIN)
-                return ;
             values.push(result);
         }
     }
     if (values.size() == 1)
         std::cout << values.top() << std::endl;
     else
-        std::cerr << "Error: Invalid expression." << std::endl;   
-
+        throw std::invalid_argument("Invalid expression.");
 }
 
 
