@@ -6,7 +6,6 @@ int main(int argc, char **argv)
         PmergeMe sorter;
         sorter.parseInput(argc, argv);
         sorter.executeSort();
-        sorter.generateJacobsthalOrder(85);
 
     } catch (std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;

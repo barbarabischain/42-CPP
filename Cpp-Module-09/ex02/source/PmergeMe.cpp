@@ -53,39 +53,39 @@ void PmergeMe::parseInput(int argc, char **argv){
 void PmergeMe::executeSort(void){
     if (is_sorted(vector)){
         std::cout << "Already sorted" << std::endl;
+        return;
     }
 
-    // clock_t start, end;
-    // double vectorTime, dequeTime;
+    clock_t start, end;
+    double vectorTime, dequeTime;
 
     std::cout << "Before: ";
     printContainer(vector);
 
-    // start = clock();
-    // sortVector();
-    // end = clock();
-    // vectorTime =  static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
+    start = clock();
+    sortVector();
+    end = clock();
+    vectorTime =  static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 
-    // start = clock();
+    start = clock();
     sortDeque();
-    // end = clock();
-    // dequeTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
+    end = clock();
+    dequeTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 
     std::cout << "After: ";
     printContainer(deque);
+
+    std::cout << std::fixed << std::setprecision(5);
+
+    std::cout << "Time to process a range of " << vector.size()
+              << " elements with std::vector :  "
+              << vectorTime << " us" << std::endl;
+
+    std::cout << "Time to process a range of " << deque.size()
+              << " elements with std::deque  :  "
+              << dequeTime << " us" << std::endl;
 }
 
-
-void printpairs(const std::vector<std::pair<int, int> >& pairs)
-{
-    for (size_t i = 0; i < pairs.size(); i++)
-    {
-        std::cout << "(" 
-                << pairs[i].first << ", " 
-                << pairs[i].second << ") ";
-    }
-    std::cout << std::endl;
-}
 
 /* SORT DEQUE */
 void PmergeMe::sortDeque(void){
@@ -141,7 +141,6 @@ void PmergeMe::sortDeque(void){
         binaryInsert(mainchain, pairs[order[i]].second);
     }
 
-    // inserir leftover
     if (hasLeftover)
         binaryInsert(mainchain, leftoverElement);
 
@@ -237,3 +236,14 @@ std::vector<size_t> PmergeMe::generateJacobsthalOrder(size_t n)
     }
     return order;
 }
+
+// void printpairs(const std::vector<std::pair<int, int> >& pairs)
+// {
+//     for (size_t i = 0; i < pairs.size(); i++)
+//     {
+//         std::cout << "(" 
+//                 << pairs[i].first << ", " 
+//                 << pairs[i].second << ") ";
+//     }
+//     std::cout << std::endl;
+// }
