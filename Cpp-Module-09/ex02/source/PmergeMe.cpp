@@ -62,17 +62,17 @@ void PmergeMe::executeSort(void){
     printContainer(vector);
 
     // start = clock();
-    sortVector();
+    // sortVector();
     // end = clock();
     // vectorTime =  static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 
     // start = clock();
-    // sortDeque();
+    sortDeque();
     // end = clock();
     // dequeTime = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1000000;
 
     std::cout << "After: ";
-    printContainer(vector);
+    printContainer(deque);
 }
 
 
@@ -87,6 +87,68 @@ void printpairs(const std::vector<std::pair<int, int> >& pairs)
     std::cout << std::endl;
 }
 
+/* SORT DEQUE */
+void PmergeMe::sortDeque(void){
+    int     leftoverElement = -1;
+    bool    hasLeftover = false;
+
+    if (deque.size() % 2 != 0)
+    {
+        hasLeftover = true;
+        leftoverElement = deque.back();
+        deque.pop_back();
+    }
+
+    // separa em pares (maior, menor)
+    std::vector<std::pair<int, int> > pairs;
+    for (size_t i = 0; i < deque.size(); i += 2)
+    {
+        if (deque[i] < deque[i + 1])
+            pairs.push_back(std::make_pair(deque[i + 1], deque[i]));
+        else
+            pairs.push_back(std::make_pair(deque[i], deque[i + 1]));
+    }
+
+    // ordena pares pelo maior
+    for (size_t i = 0; i < pairs.size(); i++)
+    {
+        for (size_t j = 0; j < pairs.size() - i - 1; j++)
+        {
+            if (pairs[j].first > pairs[j + 1].first)
+            {
+                std::pair<int, int> temp = pairs[j];
+                pairs[j] = pairs[j + 1];
+                pairs[j + 1] = temp;
+            }
+        }
+    }
+
+    // cria mainchain com os maiores
+    std::deque<int> mainchain;
+    for (size_t i = 0; i < pairs.size(); i++)
+    {
+        mainchain.push_back(pairs[i].first);
+    }
+
+    if (!pairs.empty())
+        binaryInsert(mainchain, pairs[0].second);
+
+    std::vector<size_t> order = generateJacobsthalOrder(pairs.size());
+
+
+    for (size_t i = 0; i < order.size(); i++)
+    {
+        binaryInsert(mainchain, pairs[order[i]].second);
+    }
+
+    // inserir leftover
+    if (hasLeftover)
+        binaryInsert(mainchain, leftoverElement);
+
+    deque = mainchain;
+}
+
+/* SORT VECTOR */
 void PmergeMe::sortVector(void){
     int     leftoverElement = -1;
     bool    hasLeftover = false;
@@ -129,7 +191,8 @@ void PmergeMe::sortVector(void){
         mainchain.push_back(pairs[i].first);
     }
 
-    
+
+    /* JACOBSTHAL */
     std::vector<size_t> order = generateJacobsthalOrder(pairs.size());
     binaryInsert(mainchain, pairs[0].second);
     for (size_t i = 0; i < order.size(); i++)
@@ -138,9 +201,7 @@ void PmergeMe::sortVector(void){
     }
 
     if (hasLeftover)
-    {
         binaryInsert(mainchain, leftoverElement);    
-    }
 
     vector = mainchain;
 }
